@@ -1,0 +1,12 @@
+﻿using UnityEngine;
+
+namespace SpacePortals
+{
+    public class IncreaseScale : TakedEffect
+    {
+        [SerializeField] private float _increaseScaleValue = 0.5f;
+
+        protected override void ApplyEffectToBall(Ball ball)
+            => ball.Scale = ball.Scale + _increaseScaleValue;
+    }
+}

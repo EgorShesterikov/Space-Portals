@@ -8,7 +8,7 @@ namespace SpacePortals
     {
         private bool _isTouching = false;
 
-        public ReactiveCommand PonterUp = new();
+        public ReactiveCommand PointerUp = new();
         public ReactiveCommand PointerDown = new();
         public bool IsTouching => _isTouching;
 
@@ -24,7 +24,7 @@ namespace SpacePortals
         {
             _isTouching = false;
 
-            PonterUp.Execute();
+            PointerUp.Execute();
 
             base.OnPointerUp(eventData);
         }

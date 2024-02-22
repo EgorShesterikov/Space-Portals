@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 004cd2fbb05c0d94c8168c78f0893b6a, type: 3}
+  m_Name: TakeEffectFactoryConfig
+  m_EditorClassIdentifier: 
+  _takeEffectCollection:
+  - Tupe: 0
+    Effect: {fileID: 2223605719306806443, guid: 1843018938b66ec46be451a66c5dd1fc, type: 3}
+  - Tupe: 1
+    Effect: {fileID: 445996594059380189, guid: 21627b6288fdcd64790431a216168a15, type: 3}
+  - Tupe: 2
+    Effect: {fileID: 3522860138086867728, guid: 5b477efd770108a49b2b57831f31ce4f, type: 3}
+  - Tupe: 3
+    Effect: {fileID: -3503579286682362171, guid: 2fa0b53e962b3b541b043ca01e4ec7e2, type: 3}
+  - Tupe: 4
+    Effect: {fileID: 1490471132206254439, guid: 11cddf2e77fd459488abcdeefac88ec6, type: 3}
+  - Tupe: 5
+    Effect: {fileID: 1183776408521064133, guid: 7ec48a9f507d8114a8b0906576e82be6, type: 3}
+  - Tupe: 6
+    Effect: {fileID: 7607253736678218927, guid: 5c41cb38baa299349b4a6a86560b0b08, type: 3}
+  - Tupe: 7
+    Effect: {fileID: 6424600726798067469, guid: 214f5115a85d04f4db289e1cae01d0ff, type: 3}

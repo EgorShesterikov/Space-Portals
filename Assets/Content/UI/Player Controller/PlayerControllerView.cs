@@ -1,19 +1,21 @@
 using System;
 using UniRx;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace SpacePortals
 {
     public class PlayerControllerView : WindowsBase, IDisposable
     {
-        [SerializeField] private Button _leftArrowButton;
-        [SerializeField] private Button _rightArrowButton;
+        [SerializeField] private ButtonSelectable _leftArrowButton;
+        [SerializeField] private ButtonSelectable _rightArrowButton;
 
         private CompositeDisposable _disposables = new CompositeDisposable();
 
         public ReactiveCommand OnClickedLeftArrowButton = new();
         public ReactiveCommand OnClickedRightArrowButton = new();
+
+        public ButtonSelectable LeftArrowButton => _leftArrowButton;
+        public ButtonSelectable RightArrowButton => _rightArrowButton;
 
         public void Awake()
         {

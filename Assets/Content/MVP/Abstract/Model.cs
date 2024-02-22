@@ -10,8 +10,12 @@ namespace SpacePortals
         private const float AUDIO_DEFAULT_MUSIC_VOLUME = 0.5f;
         private const float AUDIO_DEFAULT_SFX_VOLUME = 0.25f;
 
+        private BallTypes _ballType;
+
         public Model() 
         {
+            _ballType = BallTypes.Default;
+
             Stars = new(0);
             CollectedStars = new(0);
 
@@ -25,6 +29,8 @@ namespace SpacePortals
             PreviousInterface = CurrentInterface.Value;
         }
 
+        public BallTypes BallType => _ballType;
+
         public ReactiveProperty<int> Stars { get; private set; }
         public ReactiveProperty<int> CollectedStars { get; private set; }
 
@@ -37,8 +43,14 @@ namespace SpacePortals
         public ReactiveProperty<TypesInterface> CurrentInterface { get; private set; }
         public TypesInterface PreviousInterface { get; private set; }
 
+        public void ChangeBallType(BallTypes type)
+            => _ballType = type;
+
         public void AddStar()
-            => Stars.Value++;
+        {
+            Stars.Value++;
+            CollectedStars.Value++;
+        }
         public void RemoveStars(int value)
         {
             if (Stars.Value - value < 0)
@@ -46,6 +58,8 @@ namespace SpacePortals
 
             Stars.Value -= value;
         }
+        public void ResetCollectedStars()
+            => CollectedStars.Value = 0;
 
         public void AddSecondCurrentTime()
             => CurrentTime.Value++;
