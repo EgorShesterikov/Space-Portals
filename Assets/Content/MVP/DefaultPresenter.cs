@@ -11,19 +11,20 @@ namespace SpacePortals
             AudioSystem audioSystem, TimeIndication timeIndication, 
             BallSpawner ballSpawner, BallMoveController ballMoveController, 
             PortalsTransformController portalsTransformController, TakedEffectSpawner takedEffectSpawner,
-            PlayController playController) 
-            : base(model, view, audioSystem, timeIndication, ballSpawner, ballMoveController, portalsTransformController, takedEffectSpawner, playController)
+            PlayController playController, ProgressManager progressManager) 
+            : base(model, view, audioSystem, timeIndication,  ballSpawner, ballMoveController, 
+                  portalsTransformController, takedEffectSpawner, playController, progressManager)
         {
             _chanceOfAppaearance = new Dictionary<TakedEffectTypes, double> 
             { 
-                { TakedEffectTypes.Bomb, 40 },
-                { TakedEffectTypes.IncreaseScale, 7.5 },
-                { TakedEffectTypes.IncreaseVelocity, 7.5 },
-                { TakedEffectTypes.ReduceScale, 5},
-                { TakedEffectTypes.ReduceVelocity, 5},
-                { TakedEffectTypes.SpawnBall, 10 },
+                { TakedEffectTypes.Bomb, 70 },
+                { TakedEffectTypes.IncreaseScale, 2 },
+                { TakedEffectTypes.IncreaseVelocity, 2 },
+                { TakedEffectTypes.ReduceScale, 1},
+                { TakedEffectTypes.ReduceVelocity, 1},
+                { TakedEffectTypes.SpawnBall, 2 },
                 { TakedEffectTypes.Star, 20 },
-                { TakedEffectTypes.SwapGravity, 5 }
+                { TakedEffectTypes.SwapGravity, 2 }
             };
         }
 

@@ -64,5 +64,12 @@ namespace SpacePortals
             => TimeIndicationView.TimeText.text = $"Time: {SecondConverter.ConvertSecondInTimeFormat(second)}";
         public override void DisplayOnRecordTime(int second)
             => TimeIndicationView.TimeText.text = $"Record: {SecondConverter.ConvertSecondInTimeFormat(second)}";
+
+        public override void DisplayOnSkinBallInStoreMenu(BallTypes type)
+            => StoreView.DisplaySkinAndNameBall(type);
+        public override void DisplayOnCostInBuyButtonInStoreMenu(int value)
+            => StoreView.DisplayCostInBuyButton(value);
+        public override void DisplayOnSelectInBuyButtonInStoreMenu()
+            => StoreView.DisplaySelectInBuyButton();
     }
 }

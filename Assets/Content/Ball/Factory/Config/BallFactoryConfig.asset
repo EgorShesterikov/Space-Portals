@@ -13,5 +13,15 @@ MonoBehaviour:
   m_Name: BallFactoryConfig
   m_EditorClassIdentifier: 
   _ballsCollection:
-  - BallType: 0
+  - Type: 0
     Ball: {fileID: 119070526336921494, guid: 2769c063fd42e5f4aaf63f1fc5e93d40, type: 3}
+  - Type: 1
+    Ball: {fileID: 119070526336921494, guid: 3d1a451bd4fae8144bf2dca38d239164, type: 3}
+  - Type: 2
+    Ball: {fileID: 119070526336921494, guid: 02ca89d1eff67ed4da31908a73c66a4a, type: 3}
+  - Type: 3
+    Ball: {fileID: 119070526336921494, guid: 6ef291ee472efb648a64e416c417ff53, type: 3}
+  - Type: 4
+    Ball: {fileID: 119070526336921494, guid: 2763d12b153c763419e39c4c3484a57c, type: 3}
+  - Type: 5
+    Ball: {fileID: 119070526336921494, guid: 8203bccaac397884b8cfc00df8c3e024, type: 3}

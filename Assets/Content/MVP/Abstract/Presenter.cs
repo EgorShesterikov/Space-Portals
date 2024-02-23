@@ -18,6 +18,7 @@ namespace SpacePortals
         private TimeIndication _timeIndication;
         private BallMoveController _ballMoveController;
         private PlayController _playController;
+        private ProgressManager _progressManager;
 
         private CompositeDisposable _disposable = new CompositeDisposable();
         private IDisposable _leftMoveBallObservable;
@@ -27,7 +28,7 @@ namespace SpacePortals
             AudioSystem audioSystem, TimeIndication timeIndication,
             BallSpawner ballSpawner, BallMoveController ballMoveController,
             PortalsTransformController portalsTransformController, TakedEffectSpawner takedEffectSpawner,
-            PlayController playController)
+            PlayController playController, ProgressManager progressManager)
         {
             _model = model;
             _view = view;
@@ -38,10 +39,13 @@ namespace SpacePortals
             _portalsTransformController = portalsTransformController;
             _takedEffectSpawner = takedEffectSpawner;
             _playController = playController;
+            _progressManager = progressManager;
         }
 
         public void Initialize()
         {
+            _model.LoadModel(_progressManager.Load());
+
             ViewBinding();
             ModelBinding();
             TimerBinding();
@@ -126,6 +130,17 @@ namespace SpacePortals
             _model.RecordTime.First()
                 .Subscribe(value => _view.DisplayOnRecordTime(_model.RecordTime.Value))
                 .AddTo(_disposable);
+
+            _model.StoreBallType.Subscribe(type =>
+            {
+                _view.DisplayOnSkinBallInStoreMenu(type);
+
+                if(_model.CheckOpenedBallInCollection())
+                    _view.DisplayOnSelectInBuyButtonInStoreMenu();
+                else
+                    _view.DisplayOnCostInBuyButtonInStoreMenu(_model.GetCostStoreBallType());
+
+            }).AddTo(_disposable);
         }
         private void TimerBinding()
         {
@@ -161,6 +176,11 @@ namespace SpacePortals
             _view.DisplayOnMainMenu(false);
             _view.DisplayOnStoreMenu(true);
 
+            _view.DisplayOnSkinBallInStoreMenu(_model.BallType);
+            _view.DisplayOnSelectInBuyButtonInStoreMenu();
+
+            _model.ChangeStoreBallTypeToPlayerBallType();
+
             _model.ChangeTargetInterface(TypesInterface.StoreMenu);
         }
         private void OnClickSettingsButtonInMainMenu()
@@ -189,22 +209,20 @@ namespace SpacePortals
 
             _view.DisplayOnSettingsMenu(false);
 
+            _progressManager.Save(_model.SaveModel());
+
             _model.ChangeTargetInterface(_model.PreviousInterface);
         }
 
         private void OnClickLeftArrowButtonInPlayerController()
         {
             if(_model.CurrentInterface.Value == TypesInterface.StoreMenu)
-            {
-                Debug.Log("Листаем скины влево!");
-            }
+                _model.GoPreviousStoreBallType();
         }
         private void OnClickRightArrowButtonInPlayerController()
         {
             if (_model.CurrentInterface.Value == TypesInterface.StoreMenu)
-            {
-                Debug.Log("Листаем скины вправо!");
-            }
+                 _model.GoNextStoreBallType();
         }
 
         private void OnClickSettingsButtonInPlayMenu()
@@ -241,6 +259,8 @@ namespace SpacePortals
 
             _playController.Dispose();
 
+            _progressManager.Save(_model.SaveModel());
+
             _model.ChangeTargetInterface(TypesInterface.ResultsMenu);
         }
 
@@ -256,15 +276,26 @@ namespace SpacePortals
 
         private void OnClickSelectButtonInStoreMenu()
         {
-            Debug.LogWarning("Если в модели хватает валюты для покупки то выбираем и тратим деньги");
-
-            if (true)
+            if(_model.CheckOpenedBallInCollection())
             {
                 _view.DisplayOnMainMenu(true);
                 _view.DisplayOnStoreMenu(false);
-            }
 
-            _model.ChangeTargetInterface(TypesInterface.MainMenu);
+                _model.ChangePlayerBallTypeToStoreBallType();
+
+                _progressManager.Save(_model.SaveModel());
+
+                _model.ChangeTargetInterface(TypesInterface.MainMenu);
+            }
+            else if (_model.Stars.Value >= _model.GetCostStoreBallType())
+            {
+                _model.Stars.Value -= _model.GetCostStoreBallType();
+                _model.OpenBallInCollection();
+
+                _progressManager.Save(_model.SaveModel());
+
+                _view.DisplayOnSelectInBuyButtonInStoreMenu();
+            }
         }
 
         private void OnAllBallsInPlayDestroyed()

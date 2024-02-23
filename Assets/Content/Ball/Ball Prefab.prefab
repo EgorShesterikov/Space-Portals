@@ -218,6 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _velocity: 5
+  _spriteRenderer: {fileID: 3801966470342736726}
   _trailRenderer: {fileID: 5894996402760006249}
   _destroyEffect: {fileID: 0}
 --- !u!58 &7973790219878240470

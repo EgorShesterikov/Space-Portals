@@ -15,6 +15,7 @@ namespace SpacePortals
         [SerializeField] private float _velocity = 5;
 
         [Space]
+        [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private TrailRenderer _trailRenderer;
         [SerializeField] private ParticleSystem _destroyEffect;
 
@@ -22,6 +23,7 @@ namespace SpacePortals
 
         private Rigidbody2D _rigidbody2D;
 
+        public Sprite BallSprite => _spriteRenderer.sprite;
         public bool IsTransformInPortal => _isTransformInPortal;
         public Rigidbody2D Rigidbody2D => _rigidbody2D;
 

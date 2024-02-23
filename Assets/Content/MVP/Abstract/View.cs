@@ -39,5 +39,9 @@ namespace SpacePortals
 
         public abstract void DisplayOnCurrentTime(int second);
         public abstract void DisplayOnRecordTime(int second);
+
+        public abstract void DisplayOnSkinBallInStoreMenu(BallTypes type);
+        public abstract void DisplayOnCostInBuyButtonInStoreMenu(int value);
+        public abstract void DisplayOnSelectInBuyButtonInStoreMenu();
     }
 }

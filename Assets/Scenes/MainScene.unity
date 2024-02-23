@@ -25373,6 +25373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nameBallText: {fileID: 567037557}
+  _selectButtonText: {fileID: 1849577816}
   _ballImage: {fileID: 1452562157}
   _selectButton: {fileID: 422942930}
 --- !u!1 &1075983549
@@ -30652,6 +30653,7 @@ MonoBehaviour:
   _ballFactoryConfig: {fileID: 11400000, guid: a941762bd74007740928df3ed20edad7, type: 2}
   _takeEffectFactoryConfig: {fileID: 11400000, guid: 85d42c205f8b00b46a0393bf44b0fe67, type: 2}
   _playControllerConfig: {fileID: 11400000, guid: eeb7fb0271b5037499d1d4f94a011c18, type: 2}
+  _progressManagerConfig: {fileID: 11400000, guid: fe06375f91894914880ba29514782ff4, type: 2}
 --- !u!1 &1158524254
 GameObject:
   m_ObjectHideFlags: 0

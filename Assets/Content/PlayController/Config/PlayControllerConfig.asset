@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayControllerConfig
   m_EditorClassIdentifier: 
   _startTimeSwapPortal: 10
-  _startTimeSpawnTakedEffect: 5
-  _accelerationCoefficient: 0.975
-  _minTimeSwapPortal: 0.2
+  _startTimeSpawnTakedEffect: 4
+  _accelerationCoefficient: 0.97
+  _minTimeSwapPortal: 0.5
   _minTimeSpawnTakedEffect: 1

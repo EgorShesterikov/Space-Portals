@@ -14,8 +14,13 @@ namespace SpacePortals
         [SerializeField] private TakedEffectFactoryConfig _takeEffectFactoryConfig;
         [SerializeField] private PlayControllerConfig _playControllerConfig;
 
+        [Space]
+        [SerializeField] private ProgressManagerConfig _progressManagerConfig;
+
         public override void InstallBindings()
         {
+            BindSaveManager();
+
             BindMVP();
 
             BindAudioSystem();
@@ -29,6 +34,12 @@ namespace SpacePortals
             BindTakeEffectSpawner();
 
             BindPlayController();
+        }
+
+        private void BindSaveManager()
+        {
+            Container.BindInstance(_progressManagerConfig);
+            Container.BindInterfacesAndSelfTo<ProgressManager>().FromNew().AsSingle();
         }
 
         private void BindMVP()
