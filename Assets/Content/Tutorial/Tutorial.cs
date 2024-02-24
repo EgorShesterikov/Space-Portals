@@ -6,6 +6,8 @@ namespace SpacePortals
 {
     public class Tutorial : MonoBehaviour
     {
+        private const float LIFE_TIME_TUTORIAL = 5;
+
         [SerializeField] private TextMeshProUGUI _tutorialText;
         [SerializeField] private Transform _targetSpawn;
 
@@ -18,7 +20,7 @@ namespace SpacePortals
             _sequence = DOTween.Sequence();
 
             _sequence.Append(tutorialText.DOColor(Color.white, 1))
-                .AppendInterval(5)
+                .AppendInterval(LIFE_TIME_TUTORIAL)
                 .Append(tutorialText.DOColor(Color.clear, 1)
                 .SetLink(tutorialText.gameObject)
                 .OnComplete(() => Destroy(tutorialText.gameObject))
