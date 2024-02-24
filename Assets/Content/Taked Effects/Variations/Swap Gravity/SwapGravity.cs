@@ -2,7 +2,7 @@
 
 namespace SpacePortals
 {
-    public class SwapGravity : TakedEffect
+    public class SwapGravity : BuffEffect
     {
         protected override void ApplyEffectToBall(Ball ball)
         {

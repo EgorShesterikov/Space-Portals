@@ -2,7 +2,7 @@
 
 namespace SpacePortals
 {
-    public class IncreaseVelocity : TakedEffect
+    public class IncreaseVelocity : BuffEffect
     {
         [SerializeField] private float _increaseVelocityValue = 2f;
 

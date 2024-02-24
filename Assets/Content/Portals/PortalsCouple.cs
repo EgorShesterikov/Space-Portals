@@ -11,6 +11,7 @@ namespace SpacePortals
         [SerializeField] private Portal _firstPortal;
         [SerializeField] private Portal _secondPortal;
 
+        private AudioComponent _audio;
         private CompositeDisposable _disposable = new CompositeDisposable();
 
         public Transform FirstPortalTransform => _firstPortal.transform;
@@ -18,6 +19,8 @@ namespace SpacePortals
 
         public void Awake()
         {
+            _audio = GetComponent<AudioComponent>();
+
             _firstPortal.OnTriggerEnter2DAsObservable()
                 .Subscribe(collision =>
                 {
@@ -25,6 +28,8 @@ namespace SpacePortals
                     {
                         if(enterObject.YVelocity > 0 && enterObject.IsTransformInPortal == false)
                         {
+                            _audio.PlaySound("EnterPortal");
+
                             enterObject.ActionInEnter();
 
                             float originalScale = enterObject.Rigidbody2D.transform.localScale.x;
@@ -57,6 +62,8 @@ namespace SpacePortals
                     {
                         if (enterObject.YVelocity < 0 && enterObject.IsTransformInPortal == false)
                         {
+                            _audio.PlaySound("EnterPortal");
+
                             enterObject.ActionInEnter();
 
                             float originalScale = enterObject.Rigidbody2D.transform.localScale.x;

@@ -38,7 +38,7 @@ namespace SpacePortals
                     new BallSkinInfo(BallTypes.Clow, false),
                     new BallSkinInfo(BallTypes.Bigger, false),
                     new BallSkinInfo(BallTypes.Speedy, false),
-                }, BallTypes.Default, 0, 0, _config.DefaultMusicValue, _config.DefaultSfxValue);
+                }, BallTypes.Default, 0, 0, _config.DefaultMusicValue, _config.DefaultSfxValue, true);
             }
 
             try

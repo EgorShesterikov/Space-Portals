@@ -15,7 +15,12 @@ namespace SpacePortals
         public float MusicValue;
         public float SFXValue;
 
-        public ProgressJSON(List<BallSkinInfo> infoBalls, BallTypes ballTypes, int stars, int recordTime, float musicValue, float sfxValue)
+        public bool IsTutorial;
+
+        public ProgressJSON(List<BallSkinInfo> infoBalls, BallTypes ballTypes, 
+            int stars, int recordTime, 
+            float musicValue, float sfxValue,
+            bool isTutorial)
         {
             InfoBalls = infoBalls;
 
@@ -26,6 +31,8 @@ namespace SpacePortals
 
             MusicValue = musicValue;
             SFXValue = sfxValue;
+
+            IsTutorial = isTutorial;
         }
     }
 }

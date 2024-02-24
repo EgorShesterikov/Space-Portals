@@ -14,6 +14,8 @@ namespace SpacePortals
         private List<BallSkinInfo> _infoBalls;
         private BallTypes _ballType;
 
+        private bool _isTutorial;
+
         public Model() 
         {
             StoreBallType = new(_ballType);
@@ -41,6 +43,8 @@ namespace SpacePortals
         public ReactiveProperty<TypesInterface> CurrentInterface { get; private set; }
         public TypesInterface PreviousInterface { get; private set; }
 
+        public bool IsTutorial => _isTutorial;
+
         public void LoadModel(ProgressJSON progress)
         {
             _infoBalls = new List<BallSkinInfo>(progress.InfoBalls);
@@ -53,9 +57,11 @@ namespace SpacePortals
 
             MusicVolume = new(progress.MusicValue);
             SfxVolume = new(progress.SFXValue);
+
+            _isTutorial = progress.IsTutorial;
         }
         public ProgressJSON SaveModel()
-            => new ProgressJSON(_infoBalls, BallType, Stars.Value, RecordTime.Value, MusicVolume.Value, SfxVolume.Value);
+            => new ProgressJSON(_infoBalls, BallType, Stars.Value, RecordTime.Value, MusicVolume.Value, SfxVolume.Value, _isTutorial);
 
         public bool CheckOpenedBallInCollection()
             => _infoBalls.Find(ball => ball.Type == StoreBallType.Value).IsOpen;
@@ -134,5 +140,8 @@ namespace SpacePortals
             PreviousInterface = CurrentInterface.Value;
             CurrentInterface.Value = targetInterface;
         }
+
+        public void ConfirmTutorial()
+            => _isTutorial = false;
     }
 }

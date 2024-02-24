@@ -10,6 +10,15 @@ namespace SpacePortals
         [SerializeField] private PortalsTransformController _portalsTransformController;
 
         [Space]
+        [SerializeField] private GlobalSFXSource _globalSFXSource;
+
+        [Space]
+        [SerializeField] private TakedEffectSpawner _takedEffectSpawner;
+
+        [Space]
+        [SerializeField] private Tutorial _tutorial;
+
+        [Space]
         [SerializeField] private BallFactoryConfig _ballFactoryConfig;
         [SerializeField] private TakedEffectFactoryConfig _takeEffectFactoryConfig;
         [SerializeField] private PlayControllerConfig _playControllerConfig;
@@ -34,6 +43,8 @@ namespace SpacePortals
             BindTakeEffectSpawner();
 
             BindPlayController();
+
+            BindTutorial();
         }
 
         private void BindSaveManager()
@@ -52,6 +63,7 @@ namespace SpacePortals
         private void BindAudioSystem()
         {
             Container.Bind<AudioSystem>().FromNew().AsSingle();
+            Container.BindInstance(_globalSFXSource);
         }
 
         private void BindTimeIndication()
@@ -79,14 +91,19 @@ namespace SpacePortals
         private void BindTakeEffectSpawner()
         {
             Container.BindInstance(_takeEffectFactoryConfig);
+            Container.BindInstance(_takedEffectSpawner);
             Container.Bind<TakedEffectFactory>().FromNew().AsSingle();
-            Container.Bind<TakedEffectSpawner>().FromNew().AsSingle();
         }
 
         private void BindPlayController()
         {
             Container.BindInstance(_playControllerConfig);
             Container.BindInterfacesAndSelfTo<PlayController>().FromNew().AsSingle();
+        }
+
+        private void BindTutorial()
+        {
+            Container.BindInstance(_tutorial);
         }
     }
 }

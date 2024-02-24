@@ -19,6 +19,8 @@ namespace SpacePortals
         private BallMoveController _ballMoveController;
         private PlayController _playController;
         private ProgressManager _progressManager;
+        private GlobalSFXSource _globalSFXSource;
+        private Tutorial _tutorial;
 
         private CompositeDisposable _disposable = new CompositeDisposable();
         private IDisposable _leftMoveBallObservable;
@@ -28,7 +30,7 @@ namespace SpacePortals
             AudioSystem audioSystem, TimeIndication timeIndication,
             BallSpawner ballSpawner, BallMoveController ballMoveController,
             PortalsTransformController portalsTransformController, TakedEffectSpawner takedEffectSpawner,
-            PlayController playController, ProgressManager progressManager)
+            PlayController playController, ProgressManager progressManager, GlobalSFXSource globalSFXSource, Tutorial tutorial)
         {
             _model = model;
             _view = view;
@@ -40,6 +42,8 @@ namespace SpacePortals
             _takedEffectSpawner = takedEffectSpawner;
             _playController = playController;
             _progressManager = progressManager;
+            _globalSFXSource = globalSFXSource;
+            _tutorial = tutorial;
         }
 
         public void Initialize()
@@ -169,6 +173,15 @@ namespace SpacePortals
 
             _playController.StartGame();
 
+            _globalSFXSource.PlayClick();
+            _globalSFXSource.PlayStartGame();
+
+            if (_model.IsTutorial)
+            {
+                _tutorial.SpawnTutorial();
+                _model.ConfirmTutorial();
+            }
+
             _model.ChangeTargetInterface(TypesInterface.PlayMenu);
         }
         private void OnClickStoreButtonInMainMenu()
@@ -181,12 +194,16 @@ namespace SpacePortals
 
             _model.ChangeStoreBallTypeToPlayerBallType();
 
+            _globalSFXSource.PlayClick();
+
             _model.ChangeTargetInterface(TypesInterface.StoreMenu);
         }
         private void OnClickSettingsButtonInMainMenu()
         {
             _view.DisplayOnMainMenu(false);
             _view.DisplayOnSettingsMenu(true);
+
+            _globalSFXSource.PlayClick();
 
             _model.ChangeTargetInterface(TypesInterface.SettingsMenu);
         }
@@ -211,18 +228,28 @@ namespace SpacePortals
 
             _progressManager.Save(_model.SaveModel());
 
+            _globalSFXSource.PlayClick();
+
             _model.ChangeTargetInterface(_model.PreviousInterface);
         }
 
         private void OnClickLeftArrowButtonInPlayerController()
         {
-            if(_model.CurrentInterface.Value == TypesInterface.StoreMenu)
+            if (_model.CurrentInterface.Value == TypesInterface.StoreMenu)
+            {
                 _model.GoPreviousStoreBallType();
+
+                _globalSFXSource.PlayClick();
+            }
         }
         private void OnClickRightArrowButtonInPlayerController()
         {
             if (_model.CurrentInterface.Value == TypesInterface.StoreMenu)
-                 _model.GoNextStoreBallType();
+            {
+                _model.GoNextStoreBallType();
+
+                _globalSFXSource.PlayClick();
+            }
         }
 
         private void OnClickSettingsButtonInPlayMenu()
@@ -232,10 +259,16 @@ namespace SpacePortals
 
             Time.timeScale = 0;
 
+            _globalSFXSource.PlayClick();
+
             _model.ChangeTargetInterface(TypesInterface.SettingsMenu);
         }
         private void OnClickExitButtonInPlayMenu()
-            => OnOpenResultGameMenu();
+        {
+            _globalSFXSource.PlayClick();
+
+            OnOpenResultGameMenu();
+        }
 
         private void OnOpenResultGameMenu()
         {
@@ -261,6 +294,8 @@ namespace SpacePortals
 
             _progressManager.Save(_model.SaveModel());
 
+            _globalSFXSource.PlayGameOver();
+
             _model.ChangeTargetInterface(TypesInterface.ResultsMenu);
         }
 
@@ -270,6 +305,8 @@ namespace SpacePortals
             _view.DisplayOnMainMenu(true);
 
             _model.ResetCollectedStars();
+
+            _globalSFXSource.PlayClick();
 
             _model.ChangeTargetInterface(TypesInterface.MainMenu);
         }
@@ -285,6 +322,8 @@ namespace SpacePortals
 
                 _progressManager.Save(_model.SaveModel());
 
+                _globalSFXSource.PlayClick();
+
                 _model.ChangeTargetInterface(TypesInterface.MainMenu);
             }
             else if (_model.Stars.Value >= _model.GetCostStoreBallType())
@@ -294,7 +333,13 @@ namespace SpacePortals
 
                 _progressManager.Save(_model.SaveModel());
 
+                _globalSFXSource.PlayBay();
+
                 _view.DisplayOnSelectInBuyButtonInStoreMenu();
+            }
+            else
+            {
+                _globalSFXSource.PlayLock();
             }
         }
 

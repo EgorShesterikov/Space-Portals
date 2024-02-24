@@ -2,7 +2,7 @@
 
 namespace SpacePortals
 {
-    public class IncreaseScale : TakedEffect
+    public class IncreaseScale : BuffEffect
     {
         [SerializeField] private float _increaseScaleValue = 0.5f;
 

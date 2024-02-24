@@ -2,7 +2,7 @@
 
 namespace SpacePortals
 {
-    public class SpawnBall : TakedEffect
+    public class SpawnBall : BuffEffect
     {
         protected override void ApplyEffectToBall(Ball ball) { }
     }
