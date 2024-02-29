@@ -22,7 +22,7 @@ namespace SpacePortals
         public void Constructor(BallFactoryConfig config)
             => _config = config;
 
-        public ReactiveCommand OnClickedSelectButton = new();
+        public ReactiveCommand OnClickedSelectButton { get; private set; } = new();
 
         public TextMeshProUGUI NameBallText => _nameBallText;
         public Image BallImage => _ballImage;

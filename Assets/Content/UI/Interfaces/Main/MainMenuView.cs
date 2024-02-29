@@ -13,9 +13,9 @@ namespace SpacePortals
 
         private CompositeDisposable _disposables = new CompositeDisposable();
 
-        public ReactiveCommand OnClickedPlayButton = new();
-        public ReactiveCommand OnClickedStoreButton = new();
-        public ReactiveCommand OnClickedSettingsButton = new();
+        public ReactiveCommand OnClickedPlayButton { get; private set; } = new();
+        public ReactiveCommand OnClickedStoreButton { get; private set; } = new();
+        public ReactiveCommand OnClickedSettingsButton { get; private set; } = new();
 
         public void Awake()
         {

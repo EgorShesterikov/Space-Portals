@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -28,9 +29,10 @@ namespace SpacePortals
         private bool _isReady = false;
 
         private IDisposable _lifeTimer;
+        private IDisposable _triggerEnter2D;
 
-        public ReactiveCommand OnDestroy = new();
-        public ReactiveCommand OnTriggerEnter = new();
+        public ReactiveCommand Destroyed { get; private set; } = new();
+        public ReactiveCommand TriggerEntered { get; private set; } = new();
 
         public void Awake()
         {
@@ -50,16 +52,19 @@ namespace SpacePortals
                 .SetAutoKill();
         }
 
-        public void Destroy()
+        public void BallDestroy()
         {
-            OnDestroy.Execute();
-
             _lifeTimer?.Dispose();
+            _triggerEnter2D?.Dispose();
 
             Instantiate(_destroyEffect, transform.position, Quaternion.identity);
 
+            Destroyed.Execute();
+
             Destroy(gameObject);
         }
+
+        public abstract void Accept(ITakedEffectVisitor visitor);
 
         protected abstract void ApplyEffectToBall(Ball ball);
 
@@ -67,10 +72,10 @@ namespace SpacePortals
         {
             if (collision.TryGetComponent(out Ball ball) && _isReady == true)
             {
-                OnTriggerEnter.Execute();
+                TriggerEntered.Execute();
 
                 ApplyEffectToBall(ball);
-                Destroy();
+                BallDestroy();
             }
         }
 
@@ -100,7 +105,7 @@ namespace SpacePortals
                 .Join(DOTween.To(() => _light.volumeIntensity, value => _light.volumeIntensity = value, -1, ANIM_END_DURATION)).SetEase(Ease.InBounce)
                 .Join(_sprite.DOFade(0.5f, ANIM_END_DURATION)).SetEase(Ease.InBounce)
                 .SetLink(gameObject)
-                .OnComplete(() => Destroy())
+                .OnComplete(() => BallDestroy())
                 .SetAutoKill();
         }
     }

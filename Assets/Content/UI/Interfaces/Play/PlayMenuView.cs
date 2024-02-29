@@ -16,8 +16,8 @@ namespace SpacePortals
 
         private CompositeDisposable _disposable = new CompositeDisposable();
 
-        public ReactiveCommand OnClickedSettingsButton = new();
-        public ReactiveCommand OnClickedExitButton = new();
+        public ReactiveCommand OnClickedSettingsButton { get; private set; } = new();
+        public ReactiveCommand OnClickedExitButton { get; private set; } = new();
 
         public void Awake()
         {
@@ -45,16 +45,16 @@ namespace SpacePortals
             _sequence.SetUpdate(true)
                 .PrependCallback(() =>
             {
-                _canvasGroup.blocksRaycasts = false;
-                _canvasGroup.alpha = 0;
+                CanvasGroup.blocksRaycasts = false;
+                CanvasGroup.alpha = 0;
 
-                _rectTransform.anchoredPosition = new Vector3(0, OPEN_CLOSE_POSITION_Y, 0);
+                RectTransform.anchoredPosition = new Vector3(0, OPEN_CLOSE_POSITION_Y, 0);
 
                 gameObject.SetActive(true);
             })
-                .Append(_canvasGroup.DOFade(1, OPEN_CLOSE_DURATION).SetEase(Ease.InCirc))
+                .Append(CanvasGroup.DOFade(1, OPEN_CLOSE_DURATION).SetEase(Ease.InCirc))
                 .Join(transform.DOLocalMoveY(0, OPEN_CLOSE_DURATION).SetEase(Ease.InCirc))
-                .AppendCallback(() => _canvasGroup.blocksRaycasts = true);
+                .AppendCallback(() => CanvasGroup.blocksRaycasts = true);
         }
         public override void Close()
         {
@@ -64,14 +64,14 @@ namespace SpacePortals
             _sequence.SetUpdate(true)
                 .PrependCallback(() =>
             {
-                _canvasGroup.blocksRaycasts = false;
-                _canvasGroup.alpha = 1;
+                CanvasGroup.blocksRaycasts = false;
+                CanvasGroup.alpha = 1;
 
-                _rectTransform.anchoredPosition = Vector3.zero;
+                RectTransform.anchoredPosition = Vector3.zero;
 
                 gameObject.SetActive(true);
             })
-                .Append(_canvasGroup.DOFade(0, OPEN_CLOSE_DURATION).SetEase(Ease.InCirc))
+                .Append(CanvasGroup.DOFade(0, OPEN_CLOSE_DURATION).SetEase(Ease.InCirc))
                 .Join(transform.DOLocalMoveY(OPEN_CLOSE_POSITION_Y, OPEN_CLOSE_DURATION).SetEase(Ease.InCirc))
                 .AppendCallback(() => gameObject.SetActive(false));
         }

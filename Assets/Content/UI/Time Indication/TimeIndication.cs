@@ -1,6 +1,5 @@
 ﻿using System;
 using UniRx;
-using UnityEngine;
 
 namespace SpacePortals
 {
@@ -8,7 +7,7 @@ namespace SpacePortals
     {
         private IDisposable _timerActiv;
 
-        public ReactiveCommand SecondPassed = new();
+        public ReactiveCommand SecondPassed { get; private set; } = new();
 
         public void StartTimer()
         {
