@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using YG;
 
 namespace SpacePortals
 {
@@ -11,9 +12,10 @@ namespace SpacePortals
             AudioSystem audioSystem, TimeIndication timeIndication, 
             BallSpawner ballSpawner, BallMoveController ballMoveController, 
             PortalsTransformController portalsTransformController, TakedEffectSpawner takedEffectSpawner,
-            PlayController playController, ProgressManager progressManager, GlobalSFXSource globalSFXSource, Tutorial tutorial) 
+            PlayController playController, ProgressManager progressManager, GlobalSFXSource globalSFXSource, 
+            Tutorial tutorial, YandexGame yandexGame, PlayerInput playerInput) 
             : base(model, view, audioSystem, timeIndication,  ballSpawner, ballMoveController, 
-                  portalsTransformController, takedEffectSpawner, playController, progressManager, globalSFXSource, tutorial)
+                  portalsTransformController, takedEffectSpawner, playController, progressManager, globalSFXSource, tutorial, yandexGame, playerInput)
         {
             _chanceOfAppaearance = new Dictionary<TakedEffectTypes, double> 
             { 

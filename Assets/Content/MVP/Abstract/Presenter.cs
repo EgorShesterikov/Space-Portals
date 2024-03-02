@@ -1,6 +1,7 @@
 ﻿using System;
 using UniRx;
 using UnityEngine;
+using YG;
 using Zenject;
 
 namespace SpacePortals
@@ -21,6 +22,8 @@ namespace SpacePortals
         private ProgressManager _progressManager;
         private GlobalSFXSource _globalSFXSource;
         private Tutorial _tutorial;
+        private YandexGame _yandexGame;
+        private PlayerInput _playerInput;
 
         private CompositeDisposable _disposable = new CompositeDisposable();
         private IDisposable _leftMoveBallObservable;
@@ -30,7 +33,9 @@ namespace SpacePortals
             AudioSystem audioSystem, TimeIndication timeIndication,
             BallSpawner ballSpawner, BallMoveController ballMoveController,
             PortalsTransformController portalsTransformController, TakedEffectSpawner takedEffectSpawner,
-            PlayController playController, ProgressManager progressManager, GlobalSFXSource globalSFXSource, Tutorial tutorial)
+            PlayController playController, ProgressManager progressManager, GlobalSFXSource globalSFXSource, 
+            Tutorial tutorial, YandexGame yandexGame,
+            PlayerInput playerInput)
         {
             _model = model;
             _view = view;
@@ -44,6 +49,8 @@ namespace SpacePortals
             _progressManager = progressManager;
             _globalSFXSource = globalSFXSource;
             _tutorial = tutorial;
+            _yandexGame = yandexGame;
+            _playerInput = playerInput;
         }
 
         public void Initialize()
@@ -82,13 +89,13 @@ namespace SpacePortals
             Observable.EveryFixedUpdate().Where(_ =>
                     {
                         return _model.CurrentInterface.Value == TypesInterface.PlayMenu &&
-                         _view.PlayerControllerView.LeftArrowButton.IsTouching;
+                         (_view.PlayerControllerView.LeftArrowButton.IsTouching || _playerInput.HorizontalAxis < 0);
                     })
                     .Subscribe(_ => _ballMoveController.LeftAddForceBalls()).AddTo(_disposable);
             Observable.EveryFixedUpdate().Where(_ =>
                     {
                         return _model.CurrentInterface.Value == TypesInterface.PlayMenu &&
-                         _view.PlayerControllerView.RightArrowButton.IsTouching;
+                         (_view.PlayerControllerView.RightArrowButton.IsTouching || _playerInput.HorizontalAxis > 0);
                     })
                     .Subscribe(_ => _ballMoveController.RightAddForceBalls()).AddTo(_disposable);
 
@@ -308,6 +315,8 @@ namespace SpacePortals
 
             _globalSFXSource.PlayClick();
 
+            _yandexGame._FullscreenShow();
+
             _model.ChangeTargetInterface(TypesInterface.MainMenu);
         }
 
@@ -334,6 +343,8 @@ namespace SpacePortals
                 _progressManager.Save(_model.SaveModel());
 
                 _globalSFXSource.PlayBay();
+
+                _yandexGame._RewardedShow(0);
 
                 _view.DisplayOnSelectInBuyButtonInStoreMenu();
             }

@@ -42,6 +42,9 @@ namespace SpacePortals
 
         public void StartGame()
         {
+            _timeSwapPortal = _config.StartTimeSwapPortal;
+            _timeSpawnEffect = _config.StartTimeSpawnTakedEffect;
+
             _currentTimeSwapPortal = _timeSwapPortal;
             _currentTimeSpawnEffect = _timeSpawnEffect;
 

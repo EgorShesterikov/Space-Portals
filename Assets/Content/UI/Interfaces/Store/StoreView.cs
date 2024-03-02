@@ -4,6 +4,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
+using YG;
 
 namespace SpacePortals
 {
@@ -48,9 +49,46 @@ namespace SpacePortals
         }
 
         public void DisplayCostInBuyButton(int value)
-            => _selectButtonText.text = $"Stars: {value}";
+        {
+            string starsText;
 
+            switch (YandexGame.EnvironmentData.language)
+            {
+                case "ru":
+                    starsText = $"Звезды: {value}";
+                    break;
+
+                case "eu":
+                    starsText = $"Stars: {value}";
+                    break;
+
+                default:
+                    starsText = $"Звезды: {value}";
+                    break;
+            }
+
+            _selectButtonText.text = starsText;
+        }
         public void DisplaySelectInBuyButton()
-            => _selectButtonText.text = "Select";
+        {
+            string starsText;
+
+            switch (YandexGame.EnvironmentData.language)
+            {
+                case "ru":
+                    starsText = "Выбрать";
+                    break;
+
+                case "eu":
+                    starsText = "Select";
+                    break;
+
+                default:
+                    starsText = "Выбрать";
+                    break;
+            }
+
+            _selectButtonText.text = starsText;
+        }
     }
 }
