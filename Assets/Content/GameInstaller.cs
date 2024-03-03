@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using YG;
 using Zenject;
 
 namespace SpacePortals
@@ -26,6 +27,9 @@ namespace SpacePortals
         [Space]
         [SerializeField] private ProgressManagerConfig _progressManagerConfig;
 
+        [Space]
+        [SerializeField] private YandexGame _yandexGame;
+
         public override void InstallBindings()
         {
             BindSaveManager();
@@ -45,6 +49,10 @@ namespace SpacePortals
             BindPlayController();
 
             BindTutorial();
+
+            BindYandexGame();
+
+            BindPlayerInput();
         }
 
         private void BindSaveManager()
@@ -104,6 +112,16 @@ namespace SpacePortals
         private void BindTutorial()
         {
             Container.BindInstance(_tutorial);
+        }
+
+        private void BindYandexGame()
+        {
+            Container.BindInstance(_yandexGame);
+        }
+
+        private void BindPlayerInput()
+        {
+            Container.BindInterfacesAndSelfTo<PlayerInput>().FromNew().AsSingle();
         }
     }
 }

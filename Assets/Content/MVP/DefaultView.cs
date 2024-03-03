@@ -1,4 +1,5 @@
 ﻿using SupportScipts;
+using YG;
 
 namespace SpacePortals
 {
@@ -56,14 +57,42 @@ namespace SpacePortals
             => StarsIndicationView.StarsCountText.text = value.ToString();
 
         public override void DisplayOnCurrentTimeInResultsMenu(int second)
-            => ResultMenuView.CurrentTimeText.text = $"Time: {SecondConverter.ConvertSecondInTimeFormat(second)}";
+            => ResultMenuView.CurrentTimeText.text = $"{SecondConverter.ConvertSecondInTimeFormat(second)}";
         public override void DisplayOnCollectedStarsInResultsMenu(int value)
-            => ResultMenuView.CollectedStarsText.text = $"Stars: {value}";
+        {
+            string starsText;
+
+            if(YandexGame.lang == "ru")
+                starsText = $"Звезды: {value}";
+            else
+                starsText = $"Stars: {value}";
+
+            ResultMenuView.CollectedStarsText.text = starsText;
+        }
 
         public override void DisplayOnCurrentTime(int second)
-            => TimeIndicationView.TimeText.text = $"Time: {SecondConverter.ConvertSecondInTimeFormat(second)}";
+        {
+            string starsText;
+
+            if (YandexGame.lang == "ru")
+                starsText = $"Время: {SecondConverter.ConvertSecondInTimeFormat(second)}";
+            else
+                starsText = $"Time: {SecondConverter.ConvertSecondInTimeFormat(second)}";
+
+            TimeIndicationView.TimeText.text = starsText;
+        }
         public override void DisplayOnRecordTime(int second)
-            => TimeIndicationView.TimeText.text = $"Record: {SecondConverter.ConvertSecondInTimeFormat(second)}";
+        {
+            string starsText;
+
+            if (YandexGame.lang == "ru")
+                starsText = $"Рекорд: {SecondConverter.ConvertSecondInTimeFormat(second)}";
+            else
+                starsText = $"Record: {SecondConverter.ConvertSecondInTimeFormat(second)}";
+
+
+            TimeIndicationView.TimeText.text = starsText;
+        }
 
         public override void DisplayOnSkinBallInStoreMenu(BallTypes type)
             => StoreView.DisplaySkinAndNameBall(type);

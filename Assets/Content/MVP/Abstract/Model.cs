@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UniRx;
+using YG;
 
 namespace SpacePortals
 {
@@ -45,7 +46,7 @@ namespace SpacePortals
 
         public bool IsTutorial => _isTutorial;
 
-        public void LoadModel(ProgressJSON progress)
+        public void LoadModel(SavesYG progress)
         {
             _infoBalls = new List<BallSkinInfo>(progress.InfoBalls);
 
@@ -60,8 +61,8 @@ namespace SpacePortals
 
             _isTutorial = progress.IsTutorial;
         }
-        public ProgressJSON SaveModel()
-            => new ProgressJSON(_infoBalls, BallType, Stars.Value, RecordTime.Value, MusicVolume.Value, SfxVolume.Value, _isTutorial);
+        public SavesYG SaveModel()
+            => new SavesYG(_infoBalls, BallType, Stars.Value, RecordTime.Value, MusicVolume.Value, SfxVolume.Value, _isTutorial);
 
         public bool CheckOpenedBallInCollection()
             => _infoBalls.Find(ball => ball.Type == StoreBallType.Value).IsOpen;
