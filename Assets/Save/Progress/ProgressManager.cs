@@ -1,42 +1,58 @@
-using YG;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
 
 namespace SpacePortals
 {
-    public class ProgressManager : ISave<SavesYG>, ILoad<SavesYG>
+    public class ProgressManager : ISave<ProgressJSON>, ILoad<ProgressJSON>
     {
         private ProgressManagerConfig _config;
 
         public ProgressManager(ProgressManagerConfig config)
             => _config = config;
 
-        public void Save(SavesYG info)
+        public void Save(ProgressJSON info)
         {
-            YandexGame.savesData.InfoBalls = info.InfoBalls;
-            YandexGame.savesData.BallType = info.BallType;
-            YandexGame.savesData.Stars = info.Stars;
-            YandexGame.savesData.RecordTime = info.RecordTime;
-            YandexGame.savesData.MusicValue = info.MusicValue;
-            YandexGame.savesData.SFXValue = info.SFXValue;
-            YandexGame.savesData.IsTutorial = info.IsTutorial;
+            string json = JsonUtility.ToJson(info, true);
 
-            YandexGame.SaveProgress();
+            try
+            {
+                File.WriteAllText(_config.SavePatch, json);
+            }
+            catch (Exception e)
+            {
+                Debug.Log($"Warrning: {e}");
+            }
         }
 
-        public SavesYG Load()
+        public ProgressJSON Load()
         {
-            float MusicValue = YandexGame.savesData.MusicValue == -1 ? _config.DefaultMusicValue : YandexGame.savesData.MusicValue;
-            float SFXValue = YandexGame.savesData.SFXValue == -1 ? _config.DefaultSfxValue : YandexGame.savesData.SFXValue;
+            if (!File.Exists(_config.SavePatch))
+            {
+                return new ProgressJSON(new List<BallSkinInfo>()
+                {
+                    new BallSkinInfo(BallTypes.Default, true),
+                    new BallSkinInfo(BallTypes.Magma, false),
+                    new BallSkinInfo(BallTypes.Rubber, false),
+                    new BallSkinInfo(BallTypes.Clow, false),
+                    new BallSkinInfo(BallTypes.Bigger, false),
+                    new BallSkinInfo(BallTypes.Speedy, false),
+                }, BallTypes.Default, 0, 0, _config.DefaultMusicValue, _config.DefaultSfxValue, true);
+            }
 
-            SavesYG progress = new SavesYG(
-                YandexGame.savesData.InfoBalls,
-                YandexGame.savesData.BallType,
-                YandexGame.savesData.Stars,
-                YandexGame.savesData.RecordTime,
-                MusicValue,
-                SFXValue,
-                YandexGame.savesData.IsTutorial);
+            try
+            {
+                string json = File.ReadAllText(_config.SavePatch);
 
-            return progress;
+                return JsonUtility.FromJson<ProgressJSON>(json);
+            }
+            catch (Exception e)
+            {
+                Debug.Log($"Warrning: {e}");
+
+                return new ProgressJSON();
+            }
         }
     }
 }

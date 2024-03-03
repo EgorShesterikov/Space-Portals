@@ -1,7 +1,6 @@
 ﻿using System;
 using UniRx;
 using UnityEngine;
-using YG;
 using Zenject;
 
 namespace SpacePortals
@@ -22,8 +21,6 @@ namespace SpacePortals
         private ProgressManager _progressManager;
         private GlobalSFXSource _globalSFXSource;
         private Tutorial _tutorial;
-        private YandexGame _yandexGame;
-        private PlayerInput _playerInput;
 
         private CompositeDisposable _disposable = new CompositeDisposable();
         private IDisposable _leftMoveBallObservable;
@@ -33,9 +30,7 @@ namespace SpacePortals
             AudioSystem audioSystem, TimeIndication timeIndication,
             BallSpawner ballSpawner, BallMoveController ballMoveController,
             PortalsTransformController portalsTransformController, TakedEffectSpawner takedEffectSpawner,
-            PlayController playController, ProgressManager progressManager, GlobalSFXSource globalSFXSource, 
-            Tutorial tutorial, YandexGame yandexGame,
-            PlayerInput playerInput)
+            PlayController playController, ProgressManager progressManager, GlobalSFXSource globalSFXSource, Tutorial tutorial)
         {
             _model = model;
             _view = view;
@@ -49,14 +44,14 @@ namespace SpacePortals
             _progressManager = progressManager;
             _globalSFXSource = globalSFXSource;
             _tutorial = tutorial;
-            _yandexGame = yandexGame;
-            _playerInput = playerInput;
         }
 
         public void Initialize()
         {
-            YandexGame.SwitchLangEvent += InitedLocalizationAndStartBindingMVP;
+            _model.LoadModel(_progressManager.Load());
 
+            ViewBinding();
+            ModelBinding();
             TimerBinding();
             PlayControllerBinging();
         }
@@ -70,16 +65,6 @@ namespace SpacePortals
         }
 
         protected abstract TakedEffectTypes GetRandomTypeEffectInPlay();
-
-        private void InitedLocalizationAndStartBindingMVP(string language)
-        {
-            _model.LoadModel(_progressManager.Load());
-
-            ViewBinding();
-            ModelBinding();      
-
-            YandexGame.SwitchLangEvent -= InitedLocalizationAndStartBindingMVP;
-        }
 
         private void ViewBinding()
         {
@@ -97,13 +82,13 @@ namespace SpacePortals
             Observable.EveryFixedUpdate().Where(_ =>
                     {
                         return _model.CurrentInterface.Value == TypesInterface.PlayMenu &&
-                         (_view.PlayerControllerView.LeftArrowButton.IsTouching || _playerInput.HorizontalAxis < 0);
+                         _view.PlayerControllerView.LeftArrowButton.IsTouching;
                     })
                     .Subscribe(_ => _ballMoveController.LeftAddForceBalls()).AddTo(_disposable);
             Observable.EveryFixedUpdate().Where(_ =>
                     {
                         return _model.CurrentInterface.Value == TypesInterface.PlayMenu &&
-                         (_view.PlayerControllerView.RightArrowButton.IsTouching || _playerInput.HorizontalAxis > 0);
+                         _view.PlayerControllerView.RightArrowButton.IsTouching;
                     })
                     .Subscribe(_ => _ballMoveController.RightAddForceBalls()).AddTo(_disposable);
 
@@ -323,8 +308,6 @@ namespace SpacePortals
 
             _globalSFXSource.PlayClick();
 
-            _yandexGame._FullscreenShow();
-
             _model.ChangeTargetInterface(TypesInterface.MainMenu);
         }
 
@@ -351,8 +334,6 @@ namespace SpacePortals
                 _progressManager.Save(_model.SaveModel());
 
                 _globalSFXSource.PlayBay();
-
-                _yandexGame._RewardedShow(0);
 
                 _view.DisplayOnSelectInBuyButtonInStoreMenu();
             }

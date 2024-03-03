@@ -4,7 +4,6 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
-using YG;
 
 namespace SpacePortals
 {
@@ -44,70 +43,14 @@ namespace SpacePortals
         {
             Ball ball = _config.FindTypeBall(type);
 
-            string ballText;
-            if (YandexGame.lang == "ru")
-            {
-                switch(type)
-                {
-                    case BallTypes.Default:
-                        ballText = "Стандарт";
-                        break;
-
-                    case BallTypes.Magma:
-                        ballText = "Магма";
-                        break;
-
-                    case BallTypes.Rubber:
-                        ballText = "Резина";
-                        break;
-
-                    case BallTypes.Clow:
-                        ballText = "Клоун";
-                        break;
-
-                    case BallTypes.Bigger:
-                        ballText = "Великан";
-                        break;
-
-                    case BallTypes.Speedy:
-                        ballText = "Гонщик";
-                        break;
-
-                    default:
-                        throw new NotImplementedException();
-                }
-            }
-            else
-            {
-                ballText = type.ToString();
-            }
-
-            _nameBallText.text = ballText;
+            _nameBallText.text = type.ToString();
             _ballImage.sprite = ball.BallSprite;
         }
 
         public void DisplayCostInBuyButton(int value)
-        {
-            string starsText;
+            => _selectButtonText.text = $"Stars: {value}";
 
-            if(YandexGame.lang == "ru")
-                starsText = $"Звезды: {value}";
-            else
-                starsText = $"Stars: {value}";
-
-
-            _selectButtonText.text = starsText;
-        }
         public void DisplaySelectInBuyButton()
-        {
-            string selectText;
-
-            if (YandexGame.lang == "ru")
-                selectText = "Выбрать";
-            else
-                selectText = "Select";
-
-            _selectButtonText.text = selectText;
-        }
+            => _selectButtonText.text = "Select";
     }
 }

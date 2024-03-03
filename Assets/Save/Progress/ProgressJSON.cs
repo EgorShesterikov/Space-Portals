@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace SpacePortals
 {
     [Serializable]
-    public struct Progress
+    public struct ProgressJSON
     {
         public List<BallSkinInfo> InfoBalls;
         public BallTypes BallType;
@@ -17,7 +17,7 @@ namespace SpacePortals
 
         public bool IsTutorial;
 
-        public Progress(List<BallSkinInfo> infoBalls, BallTypes ballTypes, 
+        public ProgressJSON(List<BallSkinInfo> infoBalls, BallTypes ballTypes, 
             int stars, int recordTime, 
             float musicValue, float sfxValue,
             bool isTutorial)
