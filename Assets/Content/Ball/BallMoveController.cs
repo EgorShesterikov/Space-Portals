@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace SpacePortals
 {
@@ -14,12 +15,12 @@ namespace SpacePortals
         public void RightAddForceBalls()
         {
             foreach (Ball ball in _activBalls)
-                ball.Rigidbody2D.AddForceX(ADD_FORCE_POWER);
+                ball.Rigidbody2D.AddForce(Vector3.right * ADD_FORCE_POWER);
         }
         public void LeftAddForceBalls()
         {
             foreach (Ball ball in _activBalls)
-                ball.Rigidbody2D.AddForceX(-ADD_FORCE_POWER);
+                ball.Rigidbody2D.AddForce(Vector3.left * ADD_FORCE_POWER);
         }
     }
 }

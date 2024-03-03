@@ -50,7 +50,7 @@ namespace SpacePortals
             }
         }
 
-        public ReactiveCommand OnDestroy = new();
+        public ReactiveCommand OnDestroy { get; private set; } = new();
 
         public void Awake()
             => _rigidbody2D = GetComponent<Rigidbody2D>();

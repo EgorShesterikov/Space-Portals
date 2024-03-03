@@ -11,8 +11,8 @@ namespace SpacePortals
 
         private CompositeDisposable _disposables = new CompositeDisposable();
 
-        public ReactiveCommand OnClickedLeftArrowButton = new();
-        public ReactiveCommand OnClickedRightArrowButton = new();
+        public ReactiveCommand OnClickedLeftArrowButton { get; private set; } = new();
+        public ReactiveCommand OnClickedRightArrowButton { get; private set; } = new();
 
         public ButtonSelectable LeftArrowButton => _leftArrowButton;
         public ButtonSelectable RightArrowButton => _rightArrowButton;
@@ -32,8 +32,8 @@ namespace SpacePortals
             => _disposables.Dispose();
 
         public override void Open()
-            => _canvasGroup.interactable = true;
+            => CanvasGroup.interactable = true;
         public override void Close()
-            => _canvasGroup.interactable = false;
+            => CanvasGroup.interactable = false;
     }
 }

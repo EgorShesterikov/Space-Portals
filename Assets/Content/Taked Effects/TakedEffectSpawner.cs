@@ -14,7 +14,7 @@ namespace SpacePortals
 
         private AudioComponent _audio;
 
-        private TakedEffectVisitor _destroyVisitor;
+        private TakedEffectSoundVisitor _soundVisitor;
 
         private List<TakedEffect> _takedEffectCollection;
 
@@ -29,15 +29,16 @@ namespace SpacePortals
 
             _audio = GetComponent<AudioComponent>();
 
-            _destroyVisitor = new TakedEffectVisitor(_audio);
+            _soundVisitor = new TakedEffectSoundVisitor(_audio);
         }
 
         public TakedEffect SpawnInTheRandomPosition(TakedEffectTypes type)
         {
             TakedEffect takedEffect = _factory.Get(type, GetRandomPositionInPlayZone());
 
-            SubscribeToDestroyTakedEffectTracking(takedEffect);
             SubscribeToTriggerEnterTakedEffectTracking(takedEffect);
+            SubscribeToDestroyTakedEffectTracking(takedEffect);
+
             _takedEffectCollection.Add(takedEffect);
 
             return takedEffect;
@@ -46,7 +47,7 @@ namespace SpacePortals
         public void DestroyAllSpawnedTakedEffect()
         {
             while (_takedEffectCollection.Count > 0)
-                _takedEffectCollection[0].Destroy();
+                _takedEffectCollection[0].BallDestroy();
         }
 
         private Vector3 GetRandomPositionInPlayZone()
@@ -54,20 +55,25 @@ namespace SpacePortals
                 Random.Range(MIN_Y_POSITION, MAX_Y_POSITION),
                 0);
 
-        private void SubscribeToDestroyTakedEffectTracking(TakedEffect takedEffect)
-            => takedEffect.OnDestroy.Subscribe(_ => _takedEffectCollection.Remove(takedEffect)).AddTo(takedEffect);
         private void SubscribeToTriggerEnterTakedEffectTracking(TakedEffect takedEffect)
-            => takedEffect.OnTriggerEnter.Subscribe(_ => _destroyVisitor.Visit(takedEffect)).AddTo(takedEffect);
+        {
+            takedEffect.TriggerEntered.Subscribe(_ => {
+                takedEffect.Accept(_soundVisitor);
+                }).AddTo(takedEffect);
+        }
+        private void SubscribeToDestroyTakedEffectTracking(TakedEffect takedEffect)
+        {
+            takedEffect.Destroyed.Subscribe(_ => {
+                _takedEffectCollection.Remove(takedEffect);
+            }).AddTo(takedEffect);
+        }
 
-        private class TakedEffectVisitor
+        private class TakedEffectSoundVisitor : ITakedEffectVisitor
         {
             private AudioComponent _audio;
 
-            public TakedEffectVisitor(AudioComponent audio)
+            public TakedEffectSoundVisitor(AudioComponent audio)
                 => _audio = audio;
-
-            public void Visit(TakedEffect takedEffect)
-                => Visit((dynamic)takedEffect);
 
             public void Visit(Bomb effect)
                 => _audio.PlaySound("TakeBomb");

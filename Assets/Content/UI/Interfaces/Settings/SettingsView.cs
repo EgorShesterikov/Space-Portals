@@ -13,9 +13,9 @@ namespace SpacePortals
 
         private CompositeDisposable _disposables = new CompositeDisposable();
 
-        public ReactiveCommand<float> OnChangedMusicSlider = new();
-        public ReactiveCommand<float> OnChangedSFXSlider = new();
-        public ReactiveCommand OnClickedBackButton = new();
+        public ReactiveCommand<float> OnChangedMusicSlider { get; private set; } = new();
+        public ReactiveCommand<float> OnChangedSFXSlider { get; private set; } = new();
+        public ReactiveCommand OnClickedBackButton { get; private set; } = new();
 
         public SliderSelectable MusicSlider => _musicSlider;
         public SliderSelectable SfxSlider => _sfxSlider;

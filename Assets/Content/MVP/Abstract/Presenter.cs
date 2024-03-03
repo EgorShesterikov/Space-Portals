@@ -354,14 +354,14 @@ namespace SpacePortals
                 case Star:
 
                     Star starEffect = (Star)takedEffect;
-                    starEffect.OnTriggerEnter.Subscribe(_ => _model.AddStar()).AddTo(starEffect);
+                    starEffect.TriggerEntered.Subscribe(_ => _model.AddStar()).AddTo(starEffect);
 
                     break;
 
                 case SpawnBall:
 
                     SpawnBall spawnEffect = (SpawnBall)takedEffect;
-                    spawnEffect.OnTriggerEnter.Subscribe(_ =>
+                    spawnEffect.TriggerEntered.Subscribe(_ =>
                         _ballSpawner.SpawnInThePosition(_model.BallType, spawnEffect.transform.position)).AddTo(spawnEffect);
 
                     break;
