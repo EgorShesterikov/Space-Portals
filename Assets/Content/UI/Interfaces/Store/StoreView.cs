@@ -44,7 +44,45 @@ namespace SpacePortals
         {
             Ball ball = _config.FindTypeBall(type);
 
-            _nameBallText.text = type.ToString();
+            string ballText;
+            if (YandexGame.lang == "ru")
+            {
+                switch(type)
+                {
+                    case BallTypes.Default:
+                        ballText = "Стандарт";
+                        break;
+
+                    case BallTypes.Magma:
+                        ballText = "Магма";
+                        break;
+
+                    case BallTypes.Rubber:
+                        ballText = "Резина";
+                        break;
+
+                    case BallTypes.Clow:
+                        ballText = "Клоун";
+                        break;
+
+                    case BallTypes.Bigger:
+                        ballText = "Великан";
+                        break;
+
+                    case BallTypes.Speedy:
+                        ballText = "Гонщик";
+                        break;
+
+                    default:
+                        throw new NotImplementedException();
+                }
+            }
+            else
+            {
+                ballText = type.ToString();
+            }
+
+            _nameBallText.text = ballText;
             _ballImage.sprite = ball.BallSprite;
         }
 
@@ -52,43 +90,24 @@ namespace SpacePortals
         {
             string starsText;
 
-            switch (YandexGame.EnvironmentData.language)
-            {
-                case "ru":
-                    starsText = $"Звезды: {value}";
-                    break;
+            if(YandexGame.lang == "ru")
+                starsText = $"Звезды: {value}";
+            else
+                starsText = $"Stars: {value}";
 
-                case "eu":
-                    starsText = $"Stars: {value}";
-                    break;
-
-                default:
-                    starsText = $"Звезды: {value}";
-                    break;
-            }
 
             _selectButtonText.text = starsText;
         }
         public void DisplaySelectInBuyButton()
         {
-            string starsText;
+            string selectText;
 
-            switch (YandexGame.EnvironmentData.language)
-            {
-                case "ru":
-                    starsText = "Выбрать";
-                    break;
+            if (YandexGame.lang == "ru")
+                selectText = "Выбрать";
+            else
+                selectText = "Select";
 
-                case "eu":
-                    starsText = "Select";
-                    break;
-
-                default:
-                    starsText = "Выбрать";
-                    break;
-            }
-
-            _selectButtonText.text = starsText;
+            _selectButtonText.text = selectText;
         }
     }
 }

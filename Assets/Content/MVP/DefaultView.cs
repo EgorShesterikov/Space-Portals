@@ -62,20 +62,10 @@ namespace SpacePortals
         {
             string starsText;
 
-            switch(YandexGame.EnvironmentData.language)
-            {
-                case "ru":
-                    starsText = $"Звезды: {value}";
-                    break;
-
-                case "eu":
-                    starsText = $"Stars: {value}";
-                    break;
-
-                default:
-                    starsText = $"Звезды: {value}";
-                    break;
-            }
+            if(YandexGame.lang == "ru")
+                starsText = $"Звезды: {value}";
+            else
+                starsText = $"Stars: {value}";
 
             ResultMenuView.CollectedStarsText.text = starsText;
         }
@@ -84,20 +74,10 @@ namespace SpacePortals
         {
             string starsText;
 
-            switch (YandexGame.EnvironmentData.language)
-            {
-                case "ru":
-                    starsText = $"Время: {SecondConverter.ConvertSecondInTimeFormat(second)}";
-                    break;
-
-                case "eu":
-                    starsText = $"Time: {SecondConverter.ConvertSecondInTimeFormat(second)}";
-                    break;
-
-                default:
-                    starsText = $"Время: {SecondConverter.ConvertSecondInTimeFormat(second)}";
-                    break;
-            }
+            if (YandexGame.lang == "ru")
+                starsText = $"Время: {SecondConverter.ConvertSecondInTimeFormat(second)}";
+            else
+                starsText = $"Time: {SecondConverter.ConvertSecondInTimeFormat(second)}";
 
             TimeIndicationView.TimeText.text = starsText;
         }
@@ -105,20 +85,11 @@ namespace SpacePortals
         {
             string starsText;
 
-            switch (YandexGame.EnvironmentData.language)
-            {
-                case "ru":
-                    starsText = $"Рекорд: {SecondConverter.ConvertSecondInTimeFormat(second)}";
-                    break;
+            if (YandexGame.lang == "ru")
+                starsText = $"Рекорд: {SecondConverter.ConvertSecondInTimeFormat(second)}";
+            else
+                starsText = $"Record: {SecondConverter.ConvertSecondInTimeFormat(second)}";
 
-                case "eu":
-                    starsText = $"Record: {SecondConverter.ConvertSecondInTimeFormat(second)}";
-                    break;
-
-                default:
-                    starsText = $"Рекорд: {SecondConverter.ConvertSecondInTimeFormat(second)}";
-                    break;
-            }
 
             TimeIndicationView.TimeText.text = starsText;
         }

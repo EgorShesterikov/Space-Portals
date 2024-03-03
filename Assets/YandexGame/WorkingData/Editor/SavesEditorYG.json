@@ -1,5 +1,5 @@
 {
-  "idSave": 3,
+  "idSave": 30,
   "isFirstSession": false,
   "language": "ru",
   "promptDone": false,
@@ -27,11 +27,251 @@
     {
       "Type": 5,
       "IsOpen": false
+    },
+    {
+      "Type": 0,
+      "IsOpen": true
+    },
+    {
+      "Type": 1,
+      "IsOpen": false
+    },
+    {
+      "Type": 2,
+      "IsOpen": false
+    },
+    {
+      "Type": 3,
+      "IsOpen": false
+    },
+    {
+      "Type": 4,
+      "IsOpen": false
+    },
+    {
+      "Type": 5,
+      "IsOpen": false
+    },
+    {
+      "Type": 0,
+      "IsOpen": true
+    },
+    {
+      "Type": 1,
+      "IsOpen": false
+    },
+    {
+      "Type": 2,
+      "IsOpen": false
+    },
+    {
+      "Type": 3,
+      "IsOpen": false
+    },
+    {
+      "Type": 4,
+      "IsOpen": false
+    },
+    {
+      "Type": 5,
+      "IsOpen": false
+    },
+    {
+      "Type": 0,
+      "IsOpen": true
+    },
+    {
+      "Type": 1,
+      "IsOpen": false
+    },
+    {
+      "Type": 2,
+      "IsOpen": false
+    },
+    {
+      "Type": 3,
+      "IsOpen": false
+    },
+    {
+      "Type": 4,
+      "IsOpen": false
+    },
+    {
+      "Type": 5,
+      "IsOpen": false
+    },
+    {
+      "Type": 0,
+      "IsOpen": true
+    },
+    {
+      "Type": 1,
+      "IsOpen": false
+    },
+    {
+      "Type": 2,
+      "IsOpen": false
+    },
+    {
+      "Type": 3,
+      "IsOpen": false
+    },
+    {
+      "Type": 4,
+      "IsOpen": false
+    },
+    {
+      "Type": 5,
+      "IsOpen": false
+    },
+    {
+      "Type": 0,
+      "IsOpen": true
+    },
+    {
+      "Type": 1,
+      "IsOpen": false
+    },
+    {
+      "Type": 2,
+      "IsOpen": false
+    },
+    {
+      "Type": 3,
+      "IsOpen": false
+    },
+    {
+      "Type": 4,
+      "IsOpen": false
+    },
+    {
+      "Type": 5,
+      "IsOpen": false
+    },
+    {
+      "Type": 0,
+      "IsOpen": true
+    },
+    {
+      "Type": 1,
+      "IsOpen": false
+    },
+    {
+      "Type": 2,
+      "IsOpen": false
+    },
+    {
+      "Type": 3,
+      "IsOpen": false
+    },
+    {
+      "Type": 4,
+      "IsOpen": false
+    },
+    {
+      "Type": 5,
+      "IsOpen": false
+    },
+    {
+      "Type": 0,
+      "IsOpen": true
+    },
+    {
+      "Type": 1,
+      "IsOpen": false
+    },
+    {
+      "Type": 2,
+      "IsOpen": false
+    },
+    {
+      "Type": 3,
+      "IsOpen": false
+    },
+    {
+      "Type": 4,
+      "IsOpen": false
+    },
+    {
+      "Type": 5,
+      "IsOpen": false
+    },
+    {
+      "Type": 0,
+      "IsOpen": true
+    },
+    {
+      "Type": 1,
+      "IsOpen": false
+    },
+    {
+      "Type": 2,
+      "IsOpen": false
+    },
+    {
+      "Type": 3,
+      "IsOpen": false
+    },
+    {
+      "Type": 4,
+      "IsOpen": false
+    },
+    {
+      "Type": 5,
+      "IsOpen": false
+    },
+    {
+      "Type": 0,
+      "IsOpen": true
+    },
+    {
+      "Type": 1,
+      "IsOpen": false
+    },
+    {
+      "Type": 2,
+      "IsOpen": false
+    },
+    {
+      "Type": 3,
+      "IsOpen": false
+    },
+    {
+      "Type": 4,
+      "IsOpen": false
+    },
+    {
+      "Type": 5,
+      "IsOpen": false
+    },
+    {
+      "Type": 0,
+      "IsOpen": true
+    },
+    {
+      "Type": 1,
+      "IsOpen": false
+    },
+    {
+      "Type": 2,
+      "IsOpen": false
+    },
+    {
+      "Type": 3,
+      "IsOpen": false
+    },
+    {
+      "Type": 4,
+      "IsOpen": false
+    },
+    {
+      "Type": 5,
+      "IsOpen": false
     }
   ],
   "BallType": 0,
-  "Stars": 0,
-  "RecordTime": 3,
+  "Stars": 13,
+  "RecordTime": 44,
   "MusicValue": 0.5,
   "SFXValue": 0.25,
   "IsTutorial": false

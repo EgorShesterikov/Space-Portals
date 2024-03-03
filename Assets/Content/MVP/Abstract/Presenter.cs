@@ -55,10 +55,8 @@ namespace SpacePortals
 
         public void Initialize()
         {
-            _model.LoadModel(_progressManager.Load());
+            YandexGame.SwitchLangEvent += InitedLocalizationAndStartBindingMVP;
 
-            ViewBinding();
-            ModelBinding();
             TimerBinding();
             PlayControllerBinging();
         }
@@ -72,6 +70,16 @@ namespace SpacePortals
         }
 
         protected abstract TakedEffectTypes GetRandomTypeEffectInPlay();
+
+        private void InitedLocalizationAndStartBindingMVP(string language)
+        {
+            _model.LoadModel(_progressManager.Load());
+
+            ViewBinding();
+            ModelBinding();      
+
+            YandexGame.SwitchLangEvent -= InitedLocalizationAndStartBindingMVP;
+        }
 
         private void ViewBinding()
         {
