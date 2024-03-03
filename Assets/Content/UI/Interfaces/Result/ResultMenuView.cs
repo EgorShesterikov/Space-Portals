@@ -16,7 +16,7 @@ namespace SpacePortals
 
         private CompositeDisposable _disposables = new CompositeDisposable();
 
-        public ReactiveCommand OnClickedBackMainMenuButton = new();
+        public ReactiveCommand OnClickedBackMainMenuButton { get; private set; } = new();
 
         public TextMeshProUGUI CurrentTimeText => _currentTimeText;
         public TextMeshProUGUI CollectedStarsText => _collectedStarsText;

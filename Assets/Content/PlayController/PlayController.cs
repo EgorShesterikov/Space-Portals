@@ -29,10 +29,10 @@ namespace SpacePortals
             _timeSpawnEffect = _config.StartTimeSpawnTakedEffect;
         }
 
-        public ReactiveCommand AllBallsDestroyed = new();
+        public ReactiveCommand AllBallsDestroyed { get; private set; } = new();
 
-        public ReactiveCommand SwapPortals = new();
-        public ReactiveCommand SpawnTakedEffect = new();
+        public ReactiveCommand SwapPortals { get; private set; } = new();
+        public ReactiveCommand SpawnTakedEffect { get; private set; } = new();
 
         public void Dispose()
         {
@@ -42,6 +42,9 @@ namespace SpacePortals
 
         public void StartGame()
         {
+            _timeSwapPortal = _config.StartTimeSwapPortal;
+            _timeSpawnEffect = _config.StartTimeSpawnTakedEffect;
+
             _currentTimeSwapPortal = _timeSwapPortal;
             _currentTimeSpawnEffect = _timeSpawnEffect;
 

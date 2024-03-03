@@ -8,8 +8,8 @@ namespace SpacePortals
     {
         private bool _isTouching = false;
 
-        public ReactiveCommand PointerUp = new();
-        public ReactiveCommand PointerDown = new();
+        public ReactiveCommand PointerUp { get; private set; } = new();
+        public ReactiveCommand PointerDown { get; private set; } = new();
         public bool IsTouching => _isTouching;
 
         public override void OnPointerDown(PointerEventData eventData)
